@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true, trim: true },
   role: { type: String, enum: ["tutor", "student"], required: true },
   phoneNumber: { type: Number },
+  location: {type: String}
 });
 
 const userModel = new mongoose.model("users", userSchema);
