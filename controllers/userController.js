@@ -120,13 +120,13 @@ const changePassword = async (req, res) => {
   }
 };
 
-const updateUser = async (req,res)=>{
+const updateUser = async (req, res) => {
   const updates = req.body;
-  try{
+  try {
     const updateUser = await User.findByIdAndUpdate(
       req.user._id,
-      {$set: updates},
-      {new: true, runValidators: true}
+      { $set: updates },
+      { new: true, runValidators: true }
     ).select("-password");
 
     res.status(200).json({
@@ -141,13 +141,13 @@ const updateUser = async (req,res)=>{
         message: "User not found",
       });
     }
-  }catch (err) {
+  } catch (err) {
     console.error(err);
     res.status(500).json({
       status: "failed",
       message: "An error occurred while updating the user",
     });
   }
-}
+};
 
 module.exports = { registerUser, loginUser, changePassword, updateUser };

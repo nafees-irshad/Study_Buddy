@@ -65,17 +65,23 @@ const changePasswordSchema = joi.object({
     }),
 });
 
-const updateSchema = joi.object({
-  name: joi.string().max(30).optional().messages({
-    "string.empty": "Name field can not be empty",
-  }),
-  email: joi.string().email().optional().messages({
-    "string.empty": "Email field can not be empty",
-    "string.email": "Enter a valid email address",
-  }),
-  location: joi.string().optional().messages({
-    "string.empty": "Location field can not be empty",
-  }),
-})
-.or("name", "email", "location");
-module.exports = { userSchema, loginSchema, changePasswordSchema, updateSchema};
+const updateSchema = joi
+  .object({
+    name: joi.string().max(30).optional().messages({
+      "string.empty": "Name field can not be empty",
+    }),
+    email: joi.string().email().optional().messages({
+      "string.empty": "Email field can not be empty",
+      "string.email": "Enter a valid email address",
+    }),
+    location: joi.string().optional().messages({
+      "string.empty": "Location field can not be empty",
+    }),
+  })
+  .or("name", "email", "location");
+module.exports = {
+  userSchema,
+  loginSchema,
+  changePasswordSchema,
+  updateSchema,
+};
