@@ -2,7 +2,15 @@ const Tutor = require("../models/tutorModel");
 const User = require("../models/userModel");
 
 const insertTutorData = async (req, res) => {
-  const { bio, courses, qualification, availability, price } = req.body;
+  const {
+    bio,
+    subjects,
+    qualification,
+    pricingModel,
+    rate,
+    paymentDetails,
+    accountNo,
+  } = req.body;
   try {
     //fetch user id
     const userId = req.user.id;
@@ -20,10 +28,12 @@ const insertTutorData = async (req, res) => {
       userId: user._id,
       tutorId: userName,
       bio,
-      courses,
+      subjects,
       qualification,
-      availability,
-      price,
+      pricingModel,
+      rate,
+      paymentDetails,
+      accountNo,
     });
 
     // Save the new Tutor object to the database
