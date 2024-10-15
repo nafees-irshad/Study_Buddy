@@ -6,7 +6,8 @@ require("dotenv").config();
 
 //resgister user (signup)
 const registerUser = async (req, res) => {
-  const { userName, name, email, password, role, phoneNumber } = req.body;
+  const { userName, name, email, password, role, phoneNumber, keyWords } =
+    req.body;
   try {
     //check User Availblity
     const user = await User.findOne({ email });
@@ -16,8 +17,7 @@ const registerUser = async (req, res) => {
         message: "Email already exists.",
       });
     }
-    // Generate user name if not provided
-    const newUserName = userName || email.split("@")[0];
+
     //check user name ;
     const existingUser = await User.findOne({ userName });
     if (existingUser) {
@@ -32,11 +32,12 @@ const registerUser = async (req, res) => {
 
     // Create new user
     const newUser = new User({
-      userName: newUserName,
+      userName,
       name,
       email,
       password: hashedPassword,
       role,
+      keyWords,
       phoneNumber,
     });
     // Save user to database

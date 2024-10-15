@@ -32,6 +32,22 @@ const userSchema = joi.object({
       "string.empty": "Password cannot be empty.",
     }),
   role: joi.string().valid("tutor", "student").required(),
+  keyWords: joi
+    .array()
+    .items(
+      joi
+        .string()
+        .regex(/^#[\w+#]+$/)
+        .min(2)
+    ) // Ensure each keyword starts with # and keyword must be at least 2 characters
+    .min(3) // Minimum 3 keywords
+    .max(10) // Maximum 10 keywords
+    .messages({
+      "array.min": "At least 3 keywords are required",
+      "array.max": "No more than 10 keywords are allowed",
+      "string.pattern.base": "Each keyword must start with a hashtag (#).",
+      "array.items.min": "Each keyword must be at least 2 characters long",
+    }),
 });
 
 const loginSchema = joi.object({
