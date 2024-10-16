@@ -10,7 +10,7 @@ const checkUserAuth = async (req, res, next) => {
     if (!(authorization && authorization.startsWith("Bearer"))) {
       return res.status(401).json({
         status: "failed",
-        message: "Unauthorized User, No Token",
+        message: "Authentication failed. Please login.",
       });
     }
     //extracting token from headers
@@ -26,7 +26,7 @@ const checkUserAuth = async (req, res, next) => {
     next();
   } catch (err) {
     //if token is invalid or expired then send 401 status code
-    // console.log(Error)
+    console.log(Error);
     resp.status(401).json({
       status: "failed",
       message: "Authentication failed", // Provide a specific error message
