@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//create assignment model
 const assignmentSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -36,6 +37,11 @@ const assignmentSchema = new mongoose.Schema({
     type: String,
     enum: ["open", "closed", "assigned"],
     default: "open",
+  },
+  completionStatus: {
+    type: String,
+    enum: ["pending", "in-progress", "complete"],
+    default: "pending",
   },
   keywords: { type: [String], required: true },
   attachments: [
