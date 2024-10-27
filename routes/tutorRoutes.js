@@ -3,12 +3,22 @@ const router = express.Router();
 
 // Middleware for authentication
 const authenticate = require("../middleware/authMiddleware");
-router.use("/update", authenticate);
 
 // tutor routes
-const tutorData = require("../controllers/tutorController");
+const {
+  insertTutorData,
+  updateTutor,
+} = require("../controllers/tutorController");
+
+//import validator file
+const validateTutor = require("../validation/tutorValidator");
+
+//ruote level middleware
+router.use("/update", authenticate);
+router.use("/update", authenticate);
 
 //protected routes
-router.post("/update", tutorData);
+router.post("/update", validateTutor, insertTutorData);
+router.put("/update", updateTutor);
 
 module.exports = router;

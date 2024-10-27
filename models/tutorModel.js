@@ -12,7 +12,7 @@ const tutorSchema = new mongoose.Schema({
     {
       name: { type: String, required: true },
       yearsOfExperience: { type: Number, required: true },
-      Price: { type: Number, required: true }, //price per subject
+      price: { type: Number, required: true }, //price per subject
       createdAt: { type: Date, default: Date.now },
       updatedAt: { type: Date },
     },
@@ -28,16 +28,9 @@ const tutorSchema = new mongoose.Schema({
     {
       title: String, // Name of the certification
       institution: String, // Institution that provided the certification
-      year: Number, // Year when certification was obtained
+      year: Date, // Year when certification was obtained
     },
   ],
-  verifiedStatus: { type: Boolean, default: false },
-  pricingModel: {
-    type: String,
-    enum: ["per hour", "per assignment", "per project"],
-    required: true,
-    default: "per assignment",
-  },
   rate: { type: Number, required: true },
   onGoingPorjects: {
     type: [],
@@ -54,7 +47,6 @@ const tutorSchema = new mongoose.Schema({
   },
   accountNo: { type: String, required: true },
   totalIncome: { type: Number, default: 0 },
-  isActive: { type: Boolean, default: true },
   reviews: [
     {
       userId: {

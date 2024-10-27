@@ -6,7 +6,7 @@ const validateAssignment = async (req, res, next) => {
   } catch (error) {
     if (error.isJoi) {
       console.log(error.details);
-      return res.json({ message: error.details[0].message });
+      return res.status(400).json({ message: error.details[0].message });
     }
     console.error("Internal Server Error:", error);
     res.status(500).json({ message: "Internal server error" });

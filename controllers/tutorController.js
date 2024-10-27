@@ -6,7 +6,7 @@ const insertTutorData = async (req, res) => {
     bio,
     subjects,
     qualification,
-    pricingModel,
+    certification,
     rate,
     paymentDetails,
     accountNo,
@@ -30,7 +30,7 @@ const insertTutorData = async (req, res) => {
       bio,
       subjects,
       qualification,
-      pricingModel,
+      certification,
       rate,
       paymentDetails,
       accountNo,
@@ -50,4 +50,42 @@ const insertTutorData = async (req, res) => {
   }
 };
 
-module.exports = insertTutorData;
+const updateTutor = async (req, res) => {
+  const {
+    bio,
+    qualification,
+    subjects,
+    certification,
+    rate,
+    paymentDetails,
+    accountNo,
+  } = req.body;
+  const userId = req.user.id;
+  try {
+    //fetch tutor profile
+    const tutor = await Tutor.findOne({ userId: userId });
+    if (!tutor) {
+      return res.status(404).json("Tutor not found");
+    }
+    if (bio) tutor.bio = bio;
+    if (qualification) tutor.qualification = qualification;
+    if (subjects && subjects.length) {
+      tutor.subjects.push(...subjects); // Using spread operator to add new subjects
+    }
+    if (certification && certification.length) {
+      tutor.certification.push(...certification); // Using spread operator to add new certifications
+    }
+    if (rate) tutor.rate = rate;
+    if (paymentDetails) tutor.paymentDetails = paymentDetails;
+    if (accountNo) tutor.accountNo = accountNo;
+    await tutor.save();
+    res.status(200).json({
+      message: "profile updated successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Internal Server Error");
+  }
+};
+
+module.exports = { insertTutorData, updateTutor };

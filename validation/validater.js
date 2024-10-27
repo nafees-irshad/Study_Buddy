@@ -11,7 +11,7 @@ const validateSignUp = async (req, res, next) => {
     next();
   } catch (error) {
     if (error.isJoi) {
-      return res.json({ message: error.details[0].message });
+      return res.status(400).json({ message: error.details[0].message });
     }
     res.status(500).json({ message: "Internal server error" });
   }
@@ -23,7 +23,7 @@ const validateLogin = async (req, res, next) => {
     next();
   } catch (error) {
     if (error.isJoi) {
-      return res.json({ message: error.details[0].message });
+      return res.status(400).json({ message: error.details[0].message });
     }
     res.status(500).json({ message: "Internal server error" });
   }
@@ -35,7 +35,7 @@ const validateChangePassword = async (req, res, next) => {
     next();
   } catch (error) {
     if (error.isJoi) {
-      return res.json({ message: error.details[0].message });
+      return res.status(400).json({ message: error.details[0].message });
     }
     res.status(500).json({ message: "Internal server error" });
   }
@@ -47,7 +47,7 @@ const validateUpdates = async (req, res, next) => {
     next();
   } catch (error) {
     if (error.isJoi) {
-      return res.json({ message: error.details[0].message });
+      return res.status(400).json({ message: error.details[0].message });
     }
     res.status(500).json({ message: "Internal server error" });
   }

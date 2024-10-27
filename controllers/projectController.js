@@ -1,6 +1,7 @@
 const Project = require("../models/projectModel");
 const User = require("../models/userModel");
 const Assignment = require("../models/assignmentModel");
+const Tutor = require("../models/tutorModel");
 
 //Start Project
 const startProject = async (req, res) => {
@@ -28,12 +29,18 @@ const startProject = async (req, res) => {
     if (!student) {
       return res.status(404).json({ message: "Student not found" });
     }
-    // const studentName = student.studentName;
 
-    //set audto completion date if not given
+    //set auto completion date if not given
     expectedCompletionDate = uploadData.expectedCompletionDate;
     if (!expectedCompletionDate) {
       expectedCompletionDate = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 days from now
+    }
+    //update ongoing projects
+    const onGoingPorjects = 0;
+    const tutor = await Tutor.findOne({ userId: tutorObjectId });
+    if (tutor) {
+      tutor.onGoingPorjects = onGoingPorjects + 1;
+      await tutor.save();
     }
     //create new object
     const newProject = new Project({
@@ -48,12 +55,10 @@ const startProject = async (req, res) => {
     });
     //save new project
     const savedProject = await newProject.save();
-    console.log(savedProject);
+    // console.log(savedProject);
 
     // return success response
-    res
-      .status(200)
-      .json({ message: "project started successfully", savedProject });
+    res.status(200).json({ message: "project started successfully" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });

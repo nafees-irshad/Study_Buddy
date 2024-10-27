@@ -27,7 +27,7 @@ const checkUserAuth = async (req, res, next) => {
   } catch (err) {
     //if token is invalid or expired then send 401 status code
     console.log(Error);
-    resp.status(401).json({
+    res.status(401).json({
       status: "failed",
       message: "Authentication failed", // Provide a specific error message
     });
