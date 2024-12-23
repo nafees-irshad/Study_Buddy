@@ -33,12 +33,12 @@ const tutorSchema = new mongoose.Schema({
   ],
   rate: { type: Number, required: true },
   onGoingPorjects: {
-    type: [],
-    default: [],
+    type: Number,
+    default: null,
   },
   completedProjects: {
-    type: [],
-    default: [],
+    type: Number,
+    default: null,
   },
   paymentDetails: {
     type: String,

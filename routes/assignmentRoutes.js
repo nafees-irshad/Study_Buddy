@@ -4,14 +4,31 @@ const router = express.Router();
 const authenticate = require("../middleware/authMiddleware");
 
 //import controller file
-const uploadAssignment = require("../controllers/assignmentController");
-
-//Route level Middleware
-router.use("/upload", authenticate);
+const {
+  uploadAssignment,
+  updateAssignment,
+  updateDeadline,
+  viewAssignments,
+  deleteAssignment,
+} = require("../controllers/studentAssignmentController");
 
 //import validator
-const validateAssignment = require("../validation/assignmentValidator");
+// const validateAssignment = require("../validation/assignmentValidator");
 
 //protected routes
-router.post("/upload", validateAssignment, uploadAssignment);
+//upload assignment
+router.post("/upload", authenticate, uploadAssignment);
+
+//update assignment
+router.put("/edit/:id", authenticate, updateAssignment);
+
+//update deadline
+router.patch("/deadline/:id", authenticate, updateDeadline);
+
+//view assignments
+router.get("/", authenticate, viewAssignments);
+
+//delete assignment
+router.delete("/:id", authenticate, deleteAssignment);
+
 module.exports = router;

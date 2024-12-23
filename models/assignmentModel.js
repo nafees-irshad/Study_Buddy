@@ -32,7 +32,8 @@ const assignmentSchema = new mongoose.Schema({
     enum: ["homework", "essay", "research project", "other"],
     required: true,
   },
-  additionalInstructions: { type: String },
+  additionalInstructions: { type: String, default: null },
+
   status: {
     type: String,
     enum: ["open", "closed", "assigned"],
@@ -44,7 +45,7 @@ const assignmentSchema = new mongoose.Schema({
     default: "pending",
   },
   keywords: { type: [String], required: true },
-  attachments: [
+  files: [
     {
       fileName: { type: String, required: true },
       fileUrl: { type: String, required: true },

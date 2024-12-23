@@ -6,6 +6,7 @@ const userSchema = joi.object({
     .max(30)
     .pattern(/^[a-z0-9]+$/)
     .messages({
+      "string.empty": "Username can not be empty",
       "string.pattern.base":
         "Username must contain only lowercase letters and/or numbers",
     }),
@@ -13,11 +14,10 @@ const userSchema = joi.object({
     .string()
     .max(30)
     .messages({ "string.empty": "Name field cannot be empty." }),
-  email: joi
-    .string()
-    .email()
-    .required()
-    .messages({ "string.email": "Please enter a valid email address" }),
+  email: joi.string().email().required().messages({
+    "string.empty": "Email field can not empty",
+    "string.email": "Please enter a valid email address",
+  }),
   password: joi
     .string()
     .pattern(
@@ -31,13 +31,15 @@ const userSchema = joi.object({
         "Password must contain at least one uppercase letter, one special character, one number, and be at least 8 characters long",
       "string.empty": "Password cannot be empty.",
     }),
-  role: joi.string().valid("tutor", "student").required(),
+  role: joi.string().valid("tutor", "student").required().messages({
+    "any.only": "Role must be one of tutor, student",
+  }),
   keyWords: joi
     .array()
     .items(
       joi
         .string()
-        .regex(/^#[\w+#]+$/)
+        .regex(/^#[^\s#]+$/)
         .min(2)
     ) // Ensure each keyword starts with # and keyword must be at least 2 characters
     .min(3) // Minimum 3 keywords
@@ -45,7 +47,8 @@ const userSchema = joi.object({
     .messages({
       "array.min": "At least 3 keywords are required",
       "array.max": "No more than 10 keywords are allowed",
-      "string.pattern.base": "Each keyword must start with a hashtag (#).",
+      "string.pattern.base":
+        "Each keyword must start with a hashtag (#) and must not contain spaces.",
       "array.items.min": "Each keyword must be at least 2 characters long",
     }),
 });

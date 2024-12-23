@@ -1,13 +1,6 @@
 const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema({
-  assignmentId: { type: String, required: true },
-  studentId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  projectName: { type: String, required: true },
   tutorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -15,16 +8,18 @@ const projectSchema = new mongoose.Schema({
   },
   tutorName: {
     type: String,
-    // required: true,
+    required: true,
   },
+  assignmentId: { type: String, required: true },
+  projectName: { type: String, required: true },
   studentId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    // required: true,
+    required: true,
   },
   studentName: {
     type: String,
-    // required: true,
+    required: true,
   },
   startDate: {
     type: Date,
@@ -33,7 +28,7 @@ const projectSchema = new mongoose.Schema({
   },
   expectedCompletionDate: {
     type: Date,
-    // required: true,
+    required: true,
   },
   actualCompletionDate: {
     type: Date,
@@ -61,6 +56,18 @@ const projectSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  files: [
+    {
+      fileName: { type: String },
+      fileUrl: { type: String },
+    },
+  ],
+  solutionFiles: [
+    {
+      fileName: { type: String },
+      fileUrl: { type: String },
+    },
+  ],
 });
 
 module.exports = new mongoose.model("projects", projectSchema);

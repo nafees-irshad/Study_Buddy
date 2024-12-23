@@ -32,25 +32,25 @@ const assignmnetSchema = joi.object({
     "any.required": "Keywords are required",
     "array.min": "At least one keyword is required",
   }),
-  attachments: joi
-    .array()
-    .items(
-      joi.object({
-        fileName: joi.string().required().messages({
-          "any.required": "File name is required",
-        }),
-        fileUrl: joi.string().required().messages({
-          "any.required": "File is required",
-          "string.base": "File must word or PDF",
-        }),
-      })
-    )
-    .min(1)
-    .required()
-    .messages({
-      "any.required": "Attachments are required",
-      "array.min": "At least one file is required",
-    }),
+  // attachments: joi
+  //   .array()
+  //   .items(
+  //     joi.object({
+  //       fileName: joi.string().required().messages({
+  //         "any.required": "File name is required",
+  //       }),
+  //       fileUrl: joi.string().required().messages({
+  //         "any.required": "File is required",
+  //         "string.base": "File must word or PDF",
+  //       }),
+  //     })
+  //   )
+  //   .min(1)
+  //   .required()
+  //   .messages({
+  //     "any.required": "Attachments are required",
+  //     "array.min": "At least one file is required",
+  //   }),
 });
 
 module.exports = assignmnetSchema;
